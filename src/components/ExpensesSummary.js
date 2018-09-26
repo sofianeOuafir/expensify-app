@@ -4,9 +4,9 @@ import selectExpensesTotal from '../selectors/expenses-total';
 import numeral from 'numeral';
 import { getVisibleExpenses } from '../selectors/expenses'; 
 
-export const ExpensesSummary = props => (
+export const ExpensesSummary = ({ expenseCount, total }) => (
   <div>
-    <p>Viewing {props.expenseCount} totalling {numeral(props.total / 100).format('$0,0.00')} </p>
+    <h1>Viewing {expenseCount} {expenseCount && expenseCount > 1 ? 'expenses' : 'expense' } totalling {numeral(total / 100).format('$0,0.00')} </h1>
   </div>
 );
 
