@@ -3,12 +3,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expenses from '../fixtures/expenses';
 
-let addExpense, history, wrapper;
+let startAddExpense, history, wrapper;
 
 beforeEach(() => {
-  addExpense = jest.fn();
+  startAddExpense = jest.fn();
   history = { push: jest.fn() };
-  wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+  wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 });
 
 test('should render addExpensePageCorrectly', () => {
@@ -17,6 +17,6 @@ test('should render addExpensePageCorrectly', () => {
 
 test('should add the expense and redirect to home on submit', () => {
   wrapper.find('ExpenseForm').simulate('submit', expenses[0]);
-  expect(addExpense).toHaveBeenLastCalledWith(expenses[0]);
+  expect(startAddExpense).toHaveBeenLastCalledWith(expenses[0]);
   expect(history.push).toHaveBeenLastCalledWith('/');
 });
