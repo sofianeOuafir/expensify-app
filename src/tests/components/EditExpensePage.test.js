@@ -7,8 +7,15 @@ let wrapper, editExpense, removeExpense, history;
 
 beforeEach(() => {
   editExpense = jest.fn();
-  removeExpense = jest.fn();
+  removeExpense = jest.fn(() => {
+    return {
+      then: (fn) => {
+        fn();  
+      }
+    }
+  });
   history = { push: jest.fn() };
+
 
   wrapper = shallow(
     <EditExpensePage

@@ -6,7 +6,13 @@ import expenses from '../fixtures/expenses';
 let startAddExpense, history, wrapper;
 
 beforeEach(() => {
-  startAddExpense = jest.fn();
+  startAddExpense = jest.fn(() => {
+    return {
+      then: (fn) => {
+        fn();
+      }
+    }
+  });
   history = { push: jest.fn() };
   wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 });
@@ -15,8 +21,9 @@ test('should render addExpensePageCorrectly', () => {
   expect(wrapper).toMatchSnapshot();
 });
 
-test('should add the expense and redirect to home on submit', () => {
+test('should add the expense and redirect to home on submit', (done) => {
   wrapper.find('ExpenseForm').simulate('submit', expenses[0]);
   expect(startAddExpense).toHaveBeenLastCalledWith(expenses[0]);
   expect(history.push).toHaveBeenLastCalledWith('/');
+  done();
 });
