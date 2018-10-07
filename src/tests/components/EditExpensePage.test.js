@@ -6,7 +6,13 @@ import expenses from '../fixtures/expenses';
 let wrapper, editExpense, removeExpense, history;
 
 beforeEach(() => {
-  editExpense = jest.fn();
+  editExpense = jest.fn(() => {
+    return {
+      then: (fn) => {
+        fn();
+      }
+    }
+  });
   removeExpense = jest.fn(() => {
     return {
       then: (fn) => {

@@ -5,7 +5,8 @@ import {
   startAddExpense,
   setExpenses,
   startSetExpenses,
-  startRemoveExpense
+  startRemoveExpense,
+  startEditExpense
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenses";
 import configureMockStore from "redux-mock-store";
@@ -149,7 +150,7 @@ test("should fetch the expenses from firebase", (done) => {
 });
 
 test('should remove the expense from firebase', (done) => {
-  const store = createMockStore();
+  const store = createMockStore({});
   const expenseToRemove = expenses[0];
   store.dispatch(startRemoveExpense({ id: expenseToRemove.id })).then(() => {
     const actions = store.getActions();
@@ -170,5 +171,31 @@ test('should remove the expense from firebase', (done) => {
     expect(expensesId.includes(expenseToRemove.id)).toBe(false);
     done();
   })
+});
+
+test('should edit expense from firebase', (done) => {
+  const id = expenses[0].id;
+  const updates = {
+    description: 'Computer',
+    amount: 100000
+  };
+  const store = createMockStore({});
+  store.dispatch(startEditExpense({
+    id,
+    updates
+  })).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'EDIT_EXPENSE',
+      id,
+      updates
+    });
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    const expense = snapshot.val();
+    expect(expense.description).toEqual(updates.description);
+    expect(expense.amount).toEqual(updates.amount);
+    done();
+  });
 
 });
