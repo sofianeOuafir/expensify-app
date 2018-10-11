@@ -24,6 +24,6 @@ test('should render addExpensePageCorrectly', () => {
 test('should add the expense and redirect to home on submit', (done) => {
   wrapper.find('ExpenseForm').simulate('submit', expenses[0]);
   expect(startAddExpense).toHaveBeenLastCalledWith(expenses[0]);
-  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(history.push).toHaveBeenLastCalledWith('/dashboard');
   done();
 });
