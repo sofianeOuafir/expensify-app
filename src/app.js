@@ -10,6 +10,7 @@ import 'normalize.css/normalize.css'
 import './styles/styles.scss';
 import './firebase/firebase';
 import { firebase } from './firebase/firebase';
+import Loader from './components/Loader';
 
 const store = configureStore();
 
@@ -27,7 +28,7 @@ const renderApp = () => {
   }
 }
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<Loader />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
