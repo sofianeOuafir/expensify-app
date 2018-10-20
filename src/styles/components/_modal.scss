@@ -1,0 +1,28 @@
+.ReactModal__Overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  max-width: 30rem;
+  background: $dark-blue;
+  outline: none;
+  color: white;
+  padding: $l-size;
+}
+
+.modal__title {
+  font-size: $font-size-large;
+  margin: 0;
+  text-align: center;
+}
+
+.modal__content {
+  text-align: center;
+}
+
+.modal__button-group {
+  display: flex;
+  justify-content: space-around;
+}
